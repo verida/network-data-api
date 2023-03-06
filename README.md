@@ -5,6 +5,13 @@ This is a generic API that fetches public data from the Verida network.
 
 This server is hosted publicly at: [https://data.verida.network](https://data.verida.network)
 
+## Running the server
+
+```
+yarn install
+yarn run dev
+```
+
 ## Usage
 
 Make HTTP GET requests to fetch data from the network in the following format:
