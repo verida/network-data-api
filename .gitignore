@@ -7,3 +7,5 @@ keys/
 v*/
 serverconfig.*.json
 .DS_Store
+.serverless/
+*.log

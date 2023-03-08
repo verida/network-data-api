@@ -89,3 +89,11 @@ Returns just the `uri` part of the `avatar` attribute
 ```json
 {"avatar":{"uri":"data:image/undefined;base64,/9j/4A....<truncated>"}}
 ```
+
+# Deployment
+
+As a Lambda: 
+
+```
+yarn deploy-devnet 
+```
