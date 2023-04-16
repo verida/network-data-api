@@ -97,5 +97,5 @@ Returns just the `uri` part of the `avatar` attribute
 As a Lambda: 
 
 ```
-yarn deploy-devnet 
+yarn deploy-prod
 ```
