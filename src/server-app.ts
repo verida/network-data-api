@@ -1,7 +1,8 @@
-import express from 'express'
-const cors = require('cors')
 import bodyParser from 'body-parser'
+import express from 'express'
+import serverless from 'serverless-http'
 import router from './routes'
+const cors = require('cors')
 
 // Set up the express app
 const app = express()
@@ -15,3 +16,4 @@ app.use('/index.html', express.static('./README.md'))
 app.use(router)
 
 module.exports=app
+module.exports.handler = serverless(app)
