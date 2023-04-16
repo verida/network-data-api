@@ -5,6 +5,11 @@ custom:
     httpPort: 5022
     noPrependStageInUrl: true
     useChildProcesses: true
+  webpack:
+    includeModules: true
+    packagerOptions:
+      scripts:
+        - npm_config_platform=linux npm_config_arch=x64 yarn add leveldown
 
 provider:
   name: aws
