@@ -12,6 +12,7 @@ const corsConfig = {}
 app.use(cors(corsConfig))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/index.html', express.static('./README.md'))
 app.use(router)
 
 module.exports=app

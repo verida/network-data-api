@@ -1,6 +1,8 @@
 
 # Verida Network Data API
 
+https://github.com/verida/network-data-api
+
 This is a generic API that fetches public data from the Verida network.
 
 This server is hosted publicly at: [https://data.verida.network](https://data.verida.network)
