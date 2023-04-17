@@ -61,4 +61,11 @@ export default class Controller {
             }
         }
     }
+
+    public static async getIPFS(req: Request, res: Response) {
+        const ipfsHash = req.params[0]
+        const redirectUrl = `https://gateway.moralisipfs.com/ipfs/${ipfsHash}`
+
+        return res.redirect(redirectUrl)
+    }
 }
