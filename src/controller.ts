@@ -38,6 +38,8 @@ export default class Controller {
             }
         }
 
+        // Default to JSON response
+        res.setHeader('Content-Type', 'application/json')
         return res.status(200).send(data)
     }
 
