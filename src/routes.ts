@@ -8,6 +8,6 @@ router.get(/(did\:.*)$/, Controller.getData)
 
 // /<base58EncodedVeridaUri>
 // @see @verida/helpers Utils.encodeUri()
-router.get(/^\/(.*)$/, Controller.getUri)
+router.get(/^\/(.*)?$/, Controller.getUri)
 
 export default router

@@ -39,12 +39,15 @@ export default class Controller {
         }
 
         // Default to JSON response
+        console.log('setting header')
         res.setHeader('Content-Type', 'application/json')
         return res.status(200).send(data)
     }
 
     public static async getUri(req: Request, res: Response) {
-        const encodedVeridaUri = req.params[0]
+        const reqParam = req.params[0]
+        const params: any = reqParam.split('.')
+        const encodedVeridaUri = params[0]
         
         try {
             const record = await Network.getRecord(encodedVeridaUri, true)
