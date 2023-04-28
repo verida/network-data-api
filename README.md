@@ -3,7 +3,7 @@
 
 https://github.com/verida/network-data-api
 
-This is a generic API that fetches public data from the Verida network.
+This is a generic API that fetches public data from the Verida network. It also supports fetching IPFS records uploaded via Moralis.
 
 This server is hosted publicly at: [https://data.verida.network](https://data.verida.network)
 
@@ -91,6 +91,10 @@ Returns just the `uri` part of the `avatar` attribute
 ```json
 {"avatar":{"uri":"data:image/undefined;base64,/9j/4A....<truncated>"}}
 ```
+
+### Fetch IFPS data
+
+https://data.verida.network/ipfs/QmezTsjRwoi5XoqYLCH6sz4RSjXDUMXWGGFrVDxZh19p9j
 
 # Deployment
 
