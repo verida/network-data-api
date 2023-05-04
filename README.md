@@ -101,5 +101,6 @@ https://data.verida.network/ipfs/QmezTsjRwoi5XoqYLCH6sz4RSjXDUMXWGGFrVDxZh19p9j
 As a Lambda: 
 
 ```
+export AWS_PROFILE=verida-prod
 yarn deploy-prod
 ```
