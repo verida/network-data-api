@@ -50,6 +50,14 @@ It's possible to fetch just `lastName` with:
 /<did>/<contextName>/<databaseName>/test-record/data/name/lastName
 ```
 
+### Network stats
+
+It's possible to load the stats for a particular network:
+
+```
+/network/testnet/stats
+```
+
 ## Examples
 
 ### Fetch a record

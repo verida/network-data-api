@@ -71,11 +71,20 @@ export default class Controller {
     }
 
     public static async stats(req: Request, res: Response) {
-        const count = await activeDIDCount('testnet')
+        const network = req.params[0]
 
-        return res.status(200).send({
-            activeDIDs: count
-        })
+        try {
+            const count = await activeDIDCount(network)
+
+            return res.status(200).send({
+                activeDIDs: count
+            })
+        } catch(err: any) {
+            return res.status(400).send({
+                status: "fail",
+                message: `Error: ${err.message}`
+            })
+        }
     }
 
     public static async home(req: Request, res: Response) {

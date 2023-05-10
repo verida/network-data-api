@@ -22,7 +22,7 @@
     "@verida/client-ts": "^2.3.4",
     "@verida/helpers": "^2.3.1",
     "@verida/types": "^2.3.1",
-    "@verida/vda-did-resolver": "^2.3.5-rc1",
+    "@verida/vda-did-resolver": "^2.3.5-rc1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

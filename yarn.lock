@@ -2307,10 +2307,10 @@
     axios "1.2.0-alpha.1"
     lodash "^4.17.21"
 
-"@verida/vda-did-resolver@^2.3.5-rc1":
-  version "2.3.5-rc1"
-  resolved "https://registry.yarnpkg.com/@verida/vda-did-resolver/-/vda-did-resolver-2.3.5-rc1.tgz#15c8be41f12a59317d6ab7b08c5ee1574ee55e0c"
-  integrity sha512-UD5esjVfVY8EfWgVDinV7Y4f9FWwtgPL24EMynH3A+hyjsfItH77l5u4zey7LX7nTgcYViIw6VTe9r5duLR2oQ==
+"@verida/vda-did-resolver@^2.3.5-rc1.0":
+  version "2.3.5-rc1.0"
+  resolved "https://registry.yarnpkg.com/@verida/vda-did-resolver/-/vda-did-resolver-2.3.5-rc1.0.tgz#2856602b5f0500e92c998416d6b139180e309d03"
+  integrity sha512-F2XSMg0sB8t+E6mDAAdtdi24G1pT00bYGZhLXv0Oe37b5Lo0WrrBCQ3ZkInPyCwbXnjxvL94WzJgp52Xpp3FDw==
   dependencies:
     "@ethersproject/providers" "^5.7.2"
     "@verida/did-document" "^2.3.1"
