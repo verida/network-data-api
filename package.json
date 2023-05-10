@@ -4,6 +4,7 @@
   "description": "An API that returns public data from the Verida network",
   "main": "dist/server.js",
   "scripts": {
+    "prebuild": "echo 'export const Version = { version: \"'$npm_package_version'\", build_utc: \"'$(date -u -Iseconds)'\" };' > ./src/version.ts",
     "dev": "yarn build; nodemon src/server.js",
     "build": "rm -rf dist && tsc",
     "prestart": "yarn build",
