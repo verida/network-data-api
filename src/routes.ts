@@ -3,6 +3,9 @@ import Controller from './controller'
 
 const router = express.Router()
 
+router.get(/^\/network\/(.*)\/stats$/, Controller.stats)
+router.get(/^\/$/, Controller.home)
+
 // /<did>/<contextName>/<databaseName>/<recordId>/<attribute>/<...deepAttributes>
 router.get(/(did\:.*)$/, Controller.getData)
 

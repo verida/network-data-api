@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { Network } from '@verida/client-ts'
-import { buildVeridaUri, encodeUri } from '@verida/helpers'
+import { encodeUri } from '@verida/helpers'
+import { activeDIDCount } from '@verida/vda-did-resolver'
 
 export default class Controller {
 
@@ -67,5 +68,19 @@ export default class Controller {
         const redirectUrl = `https://gateway.moralisipfs.com/ipfs/${ipfsHash}`
 
         return res.redirect(redirectUrl)
+    }
+
+    public static async stats(req: Request, res: Response) {
+        const count = await activeDIDCount('testnet')
+
+        return res.status(200).send({
+            activeDIDs: count
+        })
+    }
+
+    public static async home(req: Request, res: Response) {
+        return res.status(200).send({
+            status: "ok"
+        })
     }
 }
