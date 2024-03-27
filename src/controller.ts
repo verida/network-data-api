@@ -80,6 +80,7 @@ export default class Controller {
                 activeDIDs: count
             })
         } catch(err: any) {
+            console.log(err);
             return res.status(400).send({
                 status: "fail",
                 message: `Error: ${err.message}`
