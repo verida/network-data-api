@@ -10,7 +10,8 @@
     "prestart": "yarn build",
     "start": "node dist/server.js",
     "tests": "ts-mocha './tests/**/*.ts'",
-    "deploy-prod": "yarn build && yarn sls deploy --stage prod"
+    "deploy-prod": "yarn build && yarn sls deploy --stage prod",
+    "deploy-prod-nobuild": "yarn sls deploy --stage prod"
   },
   "repository": "https://github.com/verida/network-data-api",
   "author": "Verida",
