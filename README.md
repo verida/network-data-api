@@ -106,7 +106,7 @@ https://data.verida.network/ipfs/QmezTsjRwoi5XoqYLCH6sz4RSjXDUMXWGGFrVDxZh19p9j
 
 # Deployment
 
-As a Lambda: 
+As a Lambda (but see https://github.com/verida/network-data-api/issues/6#issue-1696826403): 
 
 ```
 nvm use
