@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { Network } from '@verida/client-ts'
 import { encodeUri } from '@verida/helpers'
 import { activeDIDCount } from '@verida/vda-did-resolver'
+import * as redis from 'redis';
 
 export default class Controller {
 
@@ -10,8 +11,22 @@ export default class Controller {
         console.log(veridaUri)
         console.log(encodeUri(veridaUri))
 
+        const ignoreCache = req.query.ignoreCache
+        const redisClient = redis.createClient({ url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}` });
+        await redisClient.connect();
+
+        if (!ignoreCache) {
+            const cachedData = await redisClient.get(veridaUri)
+            if (cachedData) {
+                console.log('Cache hit - ', veridaUri)
+                return Controller.buildAttributeResult(res, cachedData)
+            }
+        }
+
         try {
             const data = await Network.getRecord(veridaUri, false)
+            redisClient.setEx(veridaUri, 3600, JSON.stringify(data));
+
             return Controller.buildAttributeResult(res, data)
         } catch (err: any) {
             return res.status(400).send({
@@ -49,7 +64,7 @@ export default class Controller {
         const reqParam = req.params[0]
         const params: any = reqParam.split('.')
         const encodedVeridaUri = params[0]
-        
+
         try {
             const record = await Network.getRecord(encodedVeridaUri, true)
             return res.status(200).send(record)
@@ -79,7 +94,7 @@ export default class Controller {
             return res.status(200).send({
                 activeDIDs: count
             })
-        } catch(err: any) {
+        } catch (err: any) {
             console.log(err);
             return res.status(400).send({
                 status: "fail",
