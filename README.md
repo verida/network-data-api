@@ -1,4 +1,3 @@
-
 # Verida Network Data API
 
 https://github.com/verida/network-data-api
@@ -7,11 +6,56 @@ This is a generic API that fetches public data from the Verida network. It also 
 
 This server is hosted publicly at: [https://data.verida.network](https://data.verida.network)
 
+## Installation instructions
+
+### Set up environment
+
+```sh
+cp .env.example .env
+```
+
+**`.env` File contains**
+
+- ENABLED_REDIS_CACHE -> Enable Redis cache
+- SERVER_PORT -> Optional, defaults to 8182
+- REDIS_HOST -> hostname of the Redis server
+- REDIS_PORT -> port of the r=Redis server
+- CACHE_DATA_TIMEOUT_SECONDS -> Timeout for cache data entries
+
+### Local Redis
+
+Using Docker:
+
+```sh
+docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+```
+
+You can inspect the Redis cache:
+
+```sh
+> docker restart redis-stack # if needed
+> docker ps # get the container ID
+> docker exec -it <container id> /bin/sh  # get a shell
+> redis-cli # start the the redis cli
+```
+
+To clear all the caches get the redis-cli (as above) and then:
+
+```sh
+flushdb
+```
+
 ## Running the server
 
-```
+```sh
 yarn install
 yarn run dev
+```
+
+## Run serverless offline
+
+```sh
+yarn svl-offline
 ```
 
 ## Usage
@@ -71,7 +115,19 @@ Fetch a user's public profile:
 This returns the full record with `_id=basicProfile`
 
 ```json
-{"_id":"basicProfile","_rev":"13-402d249600cfe3984a6a90e459d348dc","avatar":{"uri":"data:image/undefined;base64,/9j/4A....<truncated>"},"country":"Australia","description":"Help building user-centric and privacy-preserving applications with Verida","modifiedAt":"2023-03-03T04:50:32.227Z","name":"Aurel","schema":"https://common.schemas.verida.io/profile/basicProfile/v0.1.0/schema.json","signatures":{"did:vda:testnet:0x84746ff2bc4e998fb23815f242d192912076e767?context=0x3c51af440094f5e93e3421504b8203228804ea2bbcfb11a2790d25e5f8898f01":"0x4d173694cf32990e7fcea45b46da5f6b9af507a2ffc3904b3c71bf1a87817f7f671b55bc820c17a68384467039dddda4aaa5fada898fb91c0013fe44daf934ab1b"}}
+{
+  "_id": "basicProfile",
+  "_rev": "13-402d249600cfe3984a6a90e459d348dc",
+  "avatar": { "uri": "data:image/undefined;base64,/9j/4A....<truncated>" },
+  "country": "Australia",
+  "description": "Help building user-centric and privacy-preserving applications with Verida",
+  "modifiedAt": "2023-03-03T04:50:32.227Z",
+  "name": "Aurel",
+  "schema": "https://common.schemas.verida.io/profile/basicProfile/v0.1.0/schema.json",
+  "signatures": {
+    "did:vda:testnet:0x84746ff2bc4e998fb23815f242d192912076e767?context=0x3c51af440094f5e93e3421504b8203228804ea2bbcfb11a2790d25e5f8898f01": "0x4d173694cf32990e7fcea45b46da5f6b9af507a2ffc3904b3c71bf1a87817f7f671b55bc820c17a68384467039dddda4aaa5fada898fb91c0013fe44daf934ab1b"
+  }
+}
 ```
 
 ### Fetch the attribute for a record
@@ -85,7 +141,7 @@ Fetch a user's public profile avatar:
 This returns just the `avatar` attribute from the public profile record:
 
 ```json
-{"avatar":{"uri":"data:image/undefined;base64,/9j/4A....<truncated>"}}
+{ "avatar": { "uri": "data:image/undefined;base64,/9j/4A....<truncated>" } }
 ```
 
 ### Fetch a deep attribute for a record
@@ -97,7 +153,7 @@ This returns just the `avatar` attribute from the public profile record:
 Returns just the `uri` part of the `avatar` attribute
 
 ```json
-{"avatar":{"uri":"data:image/undefined;base64,/9j/4A....<truncated>"}}
+{ "avatar": { "uri": "data:image/undefined;base64,/9j/4A....<truncated>" } }
 ```
 
 ### Fetch IFPS data
@@ -106,10 +162,10 @@ https://data.verida.network/ipfs/QmezTsjRwoi5XoqYLCH6sz4RSjXDUMXWGGFrVDxZh19p9j
 
 # Deployment
 
-As a Lambda (but see https://github.com/verida/network-data-api/issues/6#issue-1696826403): 
+As a Lambda (but see https://github.com/verida/network-data-api/issues/6#issue-1696826403):
 
 ```
 nvm use
-export AWS_PROFILE=verida-prod
+export AWS_PROFILE=verida-original
 yarn deploy-prod
 ```
