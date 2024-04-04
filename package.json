@@ -10,6 +10,7 @@
     "prestart": "yarn build",
     "start": "node dist/server.js",
     "tests": "ts-mocha './tests/**/*.ts'",
+    "svl-offline": "yarn build && serverless offline",
     "deploy-prod": "export AWS_PROFILE=verida-original && yarn build && yarn sls deploy --stage prod",
     "deploy-prod-nobuild": "export AWS_PROFILE=verida-original && yarn sls deploy --stage prod"
   },

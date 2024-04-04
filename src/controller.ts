@@ -11,21 +11,30 @@ export default class Controller {
         console.log(veridaUri)
         console.log(encodeUri(veridaUri))
 
-        const ignoreCache = req.query.ignoreCache
-        const redisClient = redis.createClient({ url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}` });
-        await redisClient.connect();
+        const enabledRedisCache = process.env.ENABLED_REDIS_CACHE === 'true'
+        let redisClient: redis.RedisClientType
+        if (enabledRedisCache) {
+            const ignoreCache = req.query.ignoreCache
 
-        if (!ignoreCache) {
-            const cachedData = await redisClient.get(veridaUri)
-            if (cachedData) {
-                console.log('Cache hit - ', veridaUri)
-                return Controller.buildAttributeResult(res, cachedData)
+            redisClient = redis.createClient({ url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}` });
+            await redisClient.connect();
+
+            if (!ignoreCache) {
+                const cachedData = await redisClient.get(veridaUri)
+                if (cachedData) {
+                    console.log('Cache hit - ', veridaUri)
+                    return Controller.buildAttributeResult(res, cachedData)
+                }
             }
         }
 
         try {
             const data = await Network.getRecord(veridaUri, false)
-            redisClient.setEx(veridaUri, 3600, JSON.stringify(data));
+
+            if (enabledRedisCache) {
+                const cacheTimeout = process.env.CACHE_DATA_TIMEOUT_SECONDS ? parseInt(process.env.CACHE_DATA_TIMEOUT_SECONDS, 10) : 3600
+                redisClient.setEx(veridaUri, cacheTimeout, JSON.stringify(data));
+            }
 
             return Controller.buildAttributeResult(res, data)
         } catch (err: any) {
