@@ -166,6 +166,6 @@ As a Lambda (but see https://github.com/verida/network-data-api/issues/6#issue-1
 
 ```
 nvm use
-export AWS_PROFILE=verida-prod
+export AWS_PROFILE=verida-original
 yarn deploy-prod
 ```
