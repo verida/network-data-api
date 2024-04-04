@@ -37,8 +37,6 @@ You can inspect the Redis cache:
 > docker ps # get the container ID
 > docker exec -it <container id> /bin/sh  # get a shell
 > redis-cli # start the the redis cli
-> keys PRICING* # show the keys for all cached pricing
-> get PRICING:multichain:ETH # the price for ETH
 ```
 
 To clear all the caches get the redis-cli (as above) and then:
