@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { Network } from '@verida/client-ts'
+import { BlockchainAnchor, Network as VeridaNetwork } from "@verida/types";
 import { encodeUri } from '@verida/helpers'
 import { activeDIDCount } from '@verida/vda-did-resolver'
 import * as redis from 'redis';
@@ -7,9 +8,8 @@ import * as redis from 'redis';
 export default class Controller {
 
     public static async getData(req: Request, res: Response) {
-        const veridaUri = `verida://${req.params[0]}`
-        console.log(veridaUri)
-        console.log(encodeUri(veridaUri))
+        const network = <VeridaNetwork> req.params[0]
+        const veridaUri = `verida://${req.params[1]}`
 
         const enabledRedisCache = process.env.ENABLED_REDIS_CACHE === 'true'
         let redisClient: redis.RedisClientType
@@ -29,7 +29,7 @@ export default class Controller {
         }
 
         try {
-            const data = await Network.getRecord(veridaUri, false)
+            const data = await Network.getRecord(network, veridaUri, false)
 
             if (enabledRedisCache) {
                 const cacheTimeout = process.env.CACHE_DATA_TIMEOUT_SECONDS ? parseInt(process.env.CACHE_DATA_TIMEOUT_SECONDS, 10) : 3600
@@ -70,12 +70,13 @@ export default class Controller {
     }
 
     public static async getUri(req: Request, res: Response) {
-        const reqParam = req.params[0]
+        const network = <VeridaNetwork> req.params[0]
+        const reqParam = req.params[1]
         const params: any = reqParam.split('.')
         const encodedVeridaUri = params[0]
 
         try {
-            const record = await Network.getRecord(encodedVeridaUri, true)
+            const record = await Network.getRecord(network, encodedVeridaUri, true)
             return res.status(200).send(record)
         } catch (err: any) {
             if (err.message == 'Non-base58 character') {
@@ -95,10 +96,10 @@ export default class Controller {
     }
 
     public static async stats(req: Request, res: Response) {
-        const network = req.params[0]
+        const blockchain = <BlockchainAnchor> req.params[0]
 
         try {
-            const count = await activeDIDCount(network)
+            const count = await activeDIDCount(blockchain)
 
             return res.status(200).send({
                 activeDIDs: count

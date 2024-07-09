@@ -14,13 +14,13 @@ router.get(/^\/network\/(.*)\/stats$/, Controller.stats)
 router.get(/^\/$/, Controller.home)
 
 // /<did>/<contextName>/<databaseName>/<recordId>/<attribute>/<...deepAttributes>
-router.get(/(did\:.*)$/, Controller.getData)
+router.get(/(myrtle|banksia)\/(did\:.*)$/, Controller.getData)
 
 router.get(/^\/ipfs\/(.*)/, Controller.getIPFS)
 
 // /<base58EncodedVeridaUri>
 // @see @verida/helpers Utils.encodeUri()
-router.get(/^\/(.*)?$/, Controller.getUri)
+router.get(/(myrtle|banksia)\/^\/(.*)?$/, Controller.getUri)
 
 
 

@@ -63,7 +63,7 @@ yarn svl-offline
 Make HTTP GET requests to fetch data from the network in the following format:
 
 ```
-https://localhost:8182/<did>/<contextName>/<databaseName>/<recordId>/<attribute>/<...deepAttributes>
+https://localhost:8182/<network>/<did>/<contextName>/<databaseName>/<recordId>/<attribute>/<...deepAttributes>
 ```
 
 `did`, `contextName`, `databaseName` and `recordId` are required. The rest are optional.
@@ -91,7 +91,7 @@ Assume there is a record with the following data:
 It's possible to fetch just `lastName` with:
 
 ```
-/<did>/<contextName>/<databaseName>/test-record/data/name/lastName
+/<network>/<did>/<contextName>/<databaseName>/test-record/data/name/lastName
 ```
 
 ### Network stats
@@ -109,7 +109,7 @@ It's possible to load the stats for a particular network:
 Fetch a user's public profile:
 
 ```
-/did:vda:testnet:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile
+/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/myrtle/Verida:%20Vault/profile_public/basicProfile
 ```
 
 This returns the full record with `_id=basicProfile`
@@ -125,7 +125,7 @@ This returns the full record with `_id=basicProfile`
   "name": "Aurel",
   "schema": "https://common.schemas.verida.io/profile/basicProfile/v0.1.0/schema.json",
   "signatures": {
-    "did:vda:testnet:0x84746ff2bc4e998fb23815f242d192912076e767?context=0x3c51af440094f5e93e3421504b8203228804ea2bbcfb11a2790d25e5f8898f01": "0x4d173694cf32990e7fcea45b46da5f6b9af507a2ffc3904b3c71bf1a87817f7f671b55bc820c17a68384467039dddda4aaa5fada898fb91c0013fe44daf934ab1b"
+    "did:vda:polamoy:0x84746ff2bc4e998fb23815f242d192912076e767?context=0x3c51af440094f5e93e3421504b8203228804ea2bbcfb11a2790d25e5f8898f01": "0x4d173694cf32990e7fcea45b46da5f6b9af507a2ffc3904b3c71bf1a87817f7f671b55bc820c17a68384467039dddda4aaa5fada898fb91c0013fe44daf934ab1b"
   }
 }
 ```
@@ -135,7 +135,7 @@ This returns the full record with `_id=basicProfile`
 Fetch a user's public profile avatar:
 
 ```
-/did:vda:testnet:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile/avatar
+/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/banksia/Verida:%20Vault/profile_public/basicProfile/avatar
 ```
 
 This returns just the `avatar` attribute from the public profile record:
@@ -147,7 +147,7 @@ This returns just the `avatar` attribute from the public profile record:
 ### Fetch a deep attribute for a record
 
 ```
-/did:vda:testnet:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile/avatar/uri
+/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/banksia/Verida:%20Vault/profile_public/basicProfile/avatar/uri
 ```
 
 Returns just the `uri` part of the `avatar` attribute
