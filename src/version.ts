@@ -1,1 +1,1 @@
-export const Version = { version: "0.1.0", build_utc: "2024-07-09T23:00:18+00:00" };
+export const Version = { version: "0.2.0", build_utc: "2024-07-10T00:26:52+00:00" };
