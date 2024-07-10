@@ -58,6 +58,16 @@ yarn run dev
 yarn svl-offline
 ```
 
+## Deployment
+
+As a Lambda (but see https://github.com/verida/network-data-api/issues/6#issue-1696826403):
+
+```
+nvm use
+export AWS_PROFILE=verida-original
+yarn deploy-prod
+```
+
 ## Usage
 
 Make HTTP GET requests to fetch data from the network in the following format:
@@ -109,7 +119,7 @@ It's possible to load the stats for a particular network:
 Fetch a user's public profile:
 
 ```
-/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/myrtle/Verida:%20Vault/profile_public/basicProfile
+/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile
 ```
 
 This returns the full record with `_id=basicProfile`
@@ -135,7 +145,7 @@ This returns the full record with `_id=basicProfile`
 Fetch a user's public profile avatar:
 
 ```
-/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/banksia/Verida:%20Vault/profile_public/basicProfile/avatar
+/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile/avatar
 ```
 
 This returns just the `avatar` attribute from the public profile record:
@@ -147,7 +157,7 @@ This returns just the `avatar` attribute from the public profile record:
 ### Fetch a deep attribute for a record
 
 ```
-/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/banksia/Verida:%20Vault/profile_public/basicProfile/avatar/uri
+/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile/avatar/uri
 ```
 
 Returns just the `uri` part of the `avatar` attribute
@@ -160,12 +170,3 @@ Returns just the `uri` part of the `avatar` attribute
 
 https://data.verida.network/ipfs/QmezTsjRwoi5XoqYLCH6sz4RSjXDUMXWGGFrVDxZh19p9j
 
-# Deployment
-
-As a Lambda (but see https://github.com/verida/network-data-api/issues/6#issue-1696826403):
-
-```
-nvm use
-export AWS_PROFILE=verida-original
-yarn deploy-prod
-```
