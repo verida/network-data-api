@@ -11,6 +11,7 @@ router.get("/_health", (req, res) => utilsController.getHealth(req, res));
 router.get("/_version", (req, res) => utilsController.getVersion(req, res));
 
 router.get(/^\/network\/(.*)\/stats$/, Controller.stats)
+router.get(/^\/network\/(.*)\/dids$/, Controller.dids)
 router.get(/^\/$/, Controller.home)
 
 // /<did>/<contextName>/<databaseName>/<recordId>/<attribute>/<...deepAttributes>

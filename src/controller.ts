@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { Network } from '@verida/client-ts'
 import { BlockchainAnchor, Network as VeridaNetwork } from "@verida/types";
 import { encodeUri } from '@verida/helpers'
-import { activeDIDCount } from '@verida/vda-did-resolver'
+import { activeDIDCount, getDIDs } from '@verida/vda-did-resolver'
 import * as redis from 'redis';
 
 export default class Controller {
@@ -106,6 +106,33 @@ export default class Controller {
             })
         } catch (err: any) {
             console.log(err);
+            return res.status(400).send({
+                status: "fail",
+                message: `Error: ${err.message}`
+            })
+        }
+    }
+
+    public static async dids(req: Request, res: Response) {
+        const network = <BlockchainAnchor> req.params[0]
+        const order = req.query.order ? parseInt(<string> req.query.order) : 1
+        const limit = req.query.limit ? parseInt(<string> req.query.limit) : 20
+        let offset = req.query.offset ? parseInt(<string> req.query.offset) : 0
+
+        // Reverse the order
+        if (order === -1) {
+            const activeDidCount = await activeDIDCount(network)
+            offset = activeDidCount - limit - offset
+        }
+
+        try {
+            const result: string[] = await getDIDs(network, offset, limit)
+            const dids = result.map((item) => `did:vda:${network}:${item}`)
+
+            return res.status(200).send({
+                dids,
+            })
+        } catch(err: any) {
             return res.status(400).send({
                 status: "fail",
                 message: `Error: ${err.message}`

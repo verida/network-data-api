@@ -112,6 +112,22 @@ It's possible to load the stats for a particular network:
 /network/testnet/stats
 ```
 
+### Network DIDs
+
+It's possible to load a list of DIDs from network.
+
+List the DIDs created from 21-30:
+
+```
+/network/testnet/dids?limit=10&offset=20
+```
+
+List the most recent 20 DIDs created:
+
+```
+/network/testnet/dids?limit=20&order=-1
+```
+
 ## Examples
 
 ### Fetch a record
