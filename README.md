@@ -101,7 +101,7 @@ Assume there is a record with the following data:
 It's possible to fetch just `lastName` with:
 
 ```
-/<network>/<did>/<contextName>/<databaseName>/test-record/data/name/lastName
+/<did>/<network>/<contextName>/<databaseName>/test-record/data/name/lastName
 ```
 
 ### Network stats
@@ -109,7 +109,7 @@ It's possible to fetch just `lastName` with:
 It's possible to load the stats for a particular network:
 
 ```
-/network/testnet/stats
+/network/banksia/stats
 ```
 
 ### Network DIDs
@@ -119,13 +119,13 @@ It's possible to load a list of DIDs from network.
 List the DIDs created from 21-30:
 
 ```
-/network/testnet/dids?limit=10&offset=20
+/network/banksia/dids?limit=10&offset=20
 ```
 
 List the most recent 20 DIDs created:
 
 ```
-/network/testnet/dids?limit=20&order=-1
+/network/myrtle/dids?limit=20&order=-1
 ```
 
 ## Examples
@@ -135,7 +135,7 @@ List the most recent 20 DIDs created:
 Fetch a user's public profile:
 
 ```
-/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile
+/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/banksia/Verida:%20Vault/profile_public/basicProfile
 ```
 
 This returns the full record with `_id=basicProfile`
@@ -161,7 +161,7 @@ This returns the full record with `_id=basicProfile`
 Fetch a user's public profile avatar:
 
 ```
-/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile/avatar
+/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/banksia/Verida:%20Vault/profile_public/basicProfile/avatar
 ```
 
 This returns just the `avatar` attribute from the public profile record:
@@ -173,7 +173,7 @@ This returns just the `avatar` attribute from the public profile record:
 ### Fetch a deep attribute for a record
 
 ```
-/banksia/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/Verida:%20Vault/profile_public/basicProfile/avatar/uri
+/did:vda:polamoy:0x84746Ff2bC4E998fB23815f242d192912076e767/banksia/Verida:%20Vault/profile_public/basicProfile/avatar/uri
 ```
 
 Returns just the `uri` part of the `avatar` attribute

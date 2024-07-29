@@ -8,8 +8,7 @@ import * as redis from 'redis';
 export default class Controller {
 
     public static async getData(req: Request, res: Response) {
-        const network = <VeridaNetwork> req.params[0]
-        const veridaUri = `verida://${req.params[1]}`
+        const veridaUri = `verida://${req.params[0]}`
 
         const enabledRedisCache = process.env.ENABLED_REDIS_CACHE === 'true'
         let redisClient: redis.RedisClientType
@@ -29,7 +28,7 @@ export default class Controller {
         }
 
         try {
-            const data = await Network.getRecord(network, veridaUri, false)
+            const data = await Network.getRecord(veridaUri, false)
 
             if (enabledRedisCache) {
                 const cacheTimeout = process.env.CACHE_DATA_TIMEOUT_SECONDS ? parseInt(process.env.CACHE_DATA_TIMEOUT_SECONDS, 10) : 3600
@@ -64,19 +63,17 @@ export default class Controller {
         }
 
         // Default to JSON response
-        console.log('setting header')
         res.setHeader('Content-Type', 'application/json')
         return res.status(200).send(data)
     }
 
     public static async getUri(req: Request, res: Response) {
-        const network = <VeridaNetwork> req.params[0]
-        const reqParam = req.params[1]
+        const reqParam = req.params[0]
         const params: any = reqParam.split('.')
         const encodedVeridaUri = params[0]
 
         try {
-            const record = await Network.getRecord(network, encodedVeridaUri, true)
+            const record = await Network.getRecord(encodedVeridaUri, true)
             return res.status(200).send(record)
         } catch (err: any) {
             if (err.message == 'Non-base58 character') {
