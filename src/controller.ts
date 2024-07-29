@@ -124,10 +124,10 @@ export default class Controller {
 
         try {
             const result: string[] = await getDIDs(network, offset, limit)
-            const dids = result.map((item) => `did:vda:${network}:${item}`)
+            // const dids = result.map((item) => `did:vda:${network}:${item}`)
 
             return res.status(200).send({
-                dids,
+                dids: result
             })
         } catch(err: any) {
             return res.status(400).send({

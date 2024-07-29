@@ -119,13 +119,13 @@ It's possible to load a list of DIDs from network.
 List the DIDs created from 21-30:
 
 ```
-/network/banksia/dids?limit=10&offset=20
+/network/polpos/dids?limit=10&offset=20
 ```
 
 List the most recent 20 DIDs created:
 
 ```
-/network/myrtle/dids?limit=20&order=-1
+/network/polamoy/dids?limit=20&order=-1
 ```
 
 ## Examples
