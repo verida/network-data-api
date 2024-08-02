@@ -1,9 +1,21 @@
 import { Request, Response } from 'express'
 import { Network } from '@verida/client-ts'
-import { BlockchainAnchor, Network as VeridaNetwork } from "@verida/types";
-import { encodeUri } from '@verida/helpers'
+import { BlockchainAnchor } from "@verida/types";
 import { activeDIDCount, getDIDs } from '@verida/vda-did-resolver'
 import * as redis from 'redis';
+
+const rpcUrls: Record<string, string> = {}
+
+function setRpcUrls() {
+    if (process.env['polpos_RPC_URL']) {
+        rpcUrls['polpos'] = process.env['polpos_RPC_URL']
+    }
+    if (process.env['polamoy_RPC_URL']) {
+        rpcUrls['polamoy'] = process.env['polamoy_RPC_URL']
+    }
+
+    Network.setRpcUrls(rpcUrls)
+}
 
 export default class Controller {
 
@@ -28,6 +40,7 @@ export default class Controller {
         }
 
         try {
+            setRpcUrls()
             const data = await Network.getRecord(veridaUri, false)
 
             if (enabledRedisCache) {
@@ -94,9 +107,10 @@ export default class Controller {
 
     public static async stats(req: Request, res: Response) {
         const blockchain = <BlockchainAnchor> req.params[0]
+        const rpcUrl = rpcUrls[blockchain] ? rpcUrls[blockchain] : ''
 
         try {
-            const count = await activeDIDCount(blockchain)
+            const count = await activeDIDCount(blockchain, rpcUrl)
 
             return res.status(200).send({
                 activeDIDs: count
@@ -116,14 +130,16 @@ export default class Controller {
         const limit = req.query.limit ? parseInt(<string> req.query.limit) : 20
         let offset = req.query.offset ? parseInt(<string> req.query.offset) : 0
 
+        const rpcUrl = rpcUrls[network] ? rpcUrls[network] : ''
+
         // Reverse the order
         if (order === -1) {
-            const activeDidCount = await activeDIDCount(network)
+            const activeDidCount = await activeDIDCount(network, rpcUrl)
             offset = activeDidCount - limit - offset
         }
 
         try {
-            const result: string[] = await getDIDs(network, offset, limit)
+            const result: string[] = await getDIDs(network, offset, limit, true, rpcUrl)
             // const dids = result.map((item) => `did:vda:${network}:${item}`)
 
             return res.status(200).send({
